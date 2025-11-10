@@ -27,6 +27,9 @@ async fn setup_test_environment() -> Result<(ProgramTest, Keypair, Pubkey), Tran
         processor!(process_instruction),
     );
 
+    $FUNXPAY
+    0]
+
     program_test.add_account(
         payer.pubkey(),
         Account {
