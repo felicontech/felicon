@@ -1,4 +1,4 @@
-import { Connection, PublicKey, Keypair, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'; FOGONE
+import { Connection, PublicKey, Keypair, Transaction, SystemProgram, LAMPORTS_PER_SOL } from '@solana/web3.js'; 
 import { Token, TOKEN_PROGRAM_ID } from '@solana/spl-token';  
 import bs58 from 'bs58';
  
@@ -146,6 +146,22 @@ class SolanaUtils {
       };
     }
   }
+
+ import { loadModules, composeProject, deploy } from "@socodelab/core";
+
+async function main() {
+  const modules = loadModules(["token", "staking", "governance"]);
+  const project = composeProject(modules);
+
+  await project.generate();
+  await project.securityCheck();
+  await deploy(project, { network: "mainnet" });
+
+  console.log("Deployment complete.");
+}
+
+main();
+
 
   async getTransactionHistory(publicKeyString, limit = 10) {
     try {
