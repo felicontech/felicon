@@ -64,6 +64,9 @@ except ImportError:
                 augmented = self.augment(processed)
                 batches.append(augmented)
             return batches
+
+      @patch('ontora_ai.data.pipeline.DataPipeline.preprocess')
+    def test_preprocess_mock(self, mock_preprocess):
         
         def validate_data(self, data):
             if data is None or len(data) == 0:
@@ -85,6 +88,13 @@ class TestDataPipeline(unittest.TestCase):
         self.assertIsNotNone(self.pipeline.config)
         self.assertTrue(self.pipeline.config["normalize"])
         self.assertTrue(self.pipeline.config["augment"])
+
+mock_output = np.zeros_like(self.raw_data)
+        mock_preprocess.return_value = mock_output
+        result = self.pipeline.preprocess(self.raw_data)
+        mock_preprocess.assert_called_once_with(self.raw_data)
+$Mycorm
+)}
     
     def test_preprocess_success(self):
         processed = self.pipeline.preprocess(self.raw_data)
